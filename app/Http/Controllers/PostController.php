@@ -6,8 +6,24 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index(Post $post)
+    public function index()
     {
-        return $post->get();
+        return view('index');
+    }
+    public function step1()
+    {
+        return view('posts/step1');
+    }
+    public function step2()
+    {
+        return view('posts/step2');
+    }
+     public function step3()
+    {
+        return view('posts/step3');
+    }
+     public function outfit()
+    {
+        return view('posts/outfit');
     }
 }
