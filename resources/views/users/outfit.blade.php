@@ -1,4 +1,4 @@
-@extends('components.layout')
+@extends('components.layouts')
 @section('title','OutFit')
 
 <x-layout>

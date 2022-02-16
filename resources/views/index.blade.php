@@ -1,4 +1,4 @@
-@extends('components.layout')
+@extends('components.layouts')
 @section('title','HOME')
 
 <x-layout>
@@ -14,7 +14,7 @@
     </section>
     
     <section>
-        [<a href="{{ route('posts.step1') }}" >STEP1</a>]
+        [<a href="{{ route('step1') }}" >STEP1</a>]
         <p>まずは簡単５分の質問に答える！</p>
         <p>STEP2</p>
         <p>MYプロフィール設定</p>

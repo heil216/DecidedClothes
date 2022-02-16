@@ -3,16 +3,14 @@
 use App\Http\Controllers\PostController;
 
 Route::get('/','PostController@index')
-    ->name('posts.index');
-    
-Route::get('/step1','PostController@step1')
-    ->name('posts.step1');
-
-Route::get('/step2','PostController@step2')
-    ->name('posts.step2');
-    
-Route::get('/step3','PostController@step3')
-    ->name('posts.step3');
-    
+    ->name('index');
+Route::get('/users/questions/personalcolor','PostController@personalcolor')
+    ->name('step1');
+Route::post('/store','PostController@store')
+    ->name('store');
+Route::get('/users/questions/OwnInfo','PostController@OwnInfo')
+    ->name('step2');
+Route::get('/users/questions/Clothes','PostController@Clothes')
+    ->name('step3');
 Route::get('/outfit','PostController@outfit')
-    ->name('posts.outfit');
+    ->name('outfit');  
