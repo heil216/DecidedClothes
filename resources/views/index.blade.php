@@ -1,7 +1,8 @@
 @extends('components.layouts')
+@extends('layouts.app')
 @section('title','HOME')
 
-<x-layout>
+@section('content')
     <section>
         <p>今日のコーデを組む</p>
         <p>今日のコーデを見る</p>
@@ -16,9 +17,9 @@
     <section>
         [<a href="{{ route('step1') }}" >STEP1</a>]
         <p>まずは簡単５分の質問に答える！</p>
-        <p>STEP2</p>
+        [<a href="{{ route('step2') }}" >STEP2</a>]
         <p>MYプロフィール設定</p>
-        <p>STEP3</p>
+        [<a href="{{ route('step3') }}" >STEP3</a>]
         <p>服を追加</p>
     </section>
     
@@ -26,6 +27,5 @@
         <p>きれい</p>
         <p>カジュアル</p>
     </section>
-    
-</x-layout>
+@endsection
 

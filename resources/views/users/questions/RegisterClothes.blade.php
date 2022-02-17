@@ -1,7 +1,9 @@
 @extends('components.layouts')
+@extends('layouts.app')
 @section('title','PutClothesStore')
-<x-layput>
+@section('content')
     <main>
+        <form method="post" action="{{ route('register') }}"></form>
         <label>服の名称<input type="text" placeholder="○○パーカー"></label>
         <label for="Thickness">厚み</label>
         <select id="Thickness">
@@ -41,4 +43,4 @@
         [<a href="{{ route('posts.index') }}">HOMEに戻る</a>]
         [<a href="{{ route('posts.outfit') }}">コーデを組む</a>]
     </section>
-</x-layput>
+@endsection

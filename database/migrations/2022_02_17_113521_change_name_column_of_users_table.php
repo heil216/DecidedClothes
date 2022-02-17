@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsertypesTable extends Migration
+class ChangeNameColumnOfUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateUsertypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('usertypes', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('title', 6);
-            $table->timestamps();
-            $table->softDeletes();
+        Schema::table('users', function (Blueprint $table) {
+           $table->renameColumn('name','nickname');
         });
     }
 
@@ -28,6 +25,9 @@ class CreateUsertypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usertypes');
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('nickname')->nullable()->change();
+            $table->string('introduction')->nullable()->change();
+        });
     }
 }

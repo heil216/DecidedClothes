@@ -17,35 +17,26 @@ class PostController extends Controller
     {
         return view('/users/questions/personalcolor');
     }
-     public function store(Request $request)
+     public function diagnose(Request $request)
     {
-        // $usertype = new usertypes();
-        // dd($request);
+        $user = $request->user();
         $input = $request['question'];
-        // $input = array(1,1,2,2)
         $output = array_count_values($input);
         $max = array_keys($output, max($output));
-        $usertype = $max[0];
-            if ($usertype === 'A'){
-                echo 'あなたはSPRINGタイプです！'.PHP_EOL;
-            } elseif ($usertype === 'B'){
-                echo 'あなたはSUMMERタイプです！'.PHP_EOL;
-            } elseif ($usertype === 'C'){
-                echo 'あなたはFALLタイプです！'.PHP_EOL;
-            } else {
-                echo 'あなたはWINTERタイプです！'.PHP_EOL;
-            } 
-        // $usertype = fill($max)->save();
+        $personalseason  = $max[0];
+        echo "あなたは $personalseason  タイプです！！";
+        $user->personalseason = $personalseason;
+        $user->save();
+        return redirect('/users/questions/personalcolor');
         // $key_max = array_values($maxes);
-        print_r($input).PHP_EOL;
-        print_r($output).PHP_EOL;
-        print_r($max[0]).PHP_EOL;
+        // print_r($input).PHP_EOL;
+        // print_r($output).PHP_EOL;
+        // print_r($max[0]).PHP_EOL;
         // print_r($usertype).PHP_EOL;
         // return redirect('/users/questions/personalcolor',$usertype->id);
         // print_r($key_max).PHP_EOL;
         // $post=max($input);
         // dd($post);
-        // return redirect('users/questions/OwnInfo' . $post->id);
         
         // $request->validate([
         // 'eye' => 'required',
@@ -76,13 +67,30 @@ class PostController extends Controller
         // return redirect()
         //     ->route('posts.step2');
     }
-    public function OwnInfo()
+    public function personalinformation()
     {
-        return view('/users/questions/OwnInfo');
+        return view('/users/questions/personalinformation');
     }
-     public function Clothes()
+    public function profile(Request $request)
     {
-        return view('/users/questions/Clothes');
+        dd($request);
+        $user = $request->user();
+        $input = $request['personalinformation'];
+        $likestyle=$input[0];
+        $introduction=$input[1];
+        $user->likestyle = $likestyle;
+        $user->introduction = $introduction;
+        $user->save();
+    }
+     public function RegisterClothes()
+    {
+        return view('/users/questions/RegisterClothes');
+    }
+    public function register(Request $request)
+    {
+        $clothes = $request->clothe();
+        $input = $request['register'];
+        dd($request);
     }
      public function outfit()
     {
