@@ -96,6 +96,6 @@
         </form>
         <!--<p>戻る</p>-->
   
-        [<a href="{{ route('step2') }}">STEP2に進む</a>]
+        <!--[<a href="{{ route('step2') }}">STEP2に進む</a>]-->
         [<a href="{{ route('index') }}">HOMEに戻る</a>]
 @endsection
