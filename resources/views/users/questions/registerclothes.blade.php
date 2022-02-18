@@ -2,17 +2,19 @@
 @extends('layouts.app')
 @section('title','PutClothesStore')
 @section('content')
-    <main>
+
         <form method="post" action="{{ route('register') }}">
-            <label>服の名称<input type="text" placeholder="○○パーカー"></label>
+            @csrf
+            
+            <label>服の名称<input type="text" name="clothename" placeholder="○○パーカー"></label>
             <label for="Thickness">厚み</label>
-            <select id="Thickness">
+            <select id="Thickness" name="thickness">
                 <option value="厚め">厚め</option>
                 <option value="薄め">薄め</option>
             </select>
             
             <label for="ClotheColor">色</label>
-            <select id="ClotheColor">
+            <select id="ClotheColor" name="clothecolor">
                 <option value="黒">黒</option>
                 <option value="グレー">グレー</option>
                 <option value="白">白</option>
@@ -29,14 +31,13 @@
             </select>
             
             <label for="ClotheStyle">系統</label>
-            <select id="ClotheStyle">
+            <select id="ClotheStyle" name="clothestyle">
                 <option value="カジュアル">カジュアル</option>
                 <option value="きれいめ">きれいめ</option>
             </select>
             <input type="submit" value="クローゼットに追加する"/>
         </form>
-        [<a href="{{ route('posts.index') }}">終了する</a>]
-    </main>
+        
     
     <section>
         <p>COLLECT!!!</p>

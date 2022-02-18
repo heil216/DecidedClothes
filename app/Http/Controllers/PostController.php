@@ -35,24 +35,28 @@ class PostController extends Controller
     }
     public function profile(Request $request)
     {
-        dd($request);
-        // $user = $request->user();
-        // $input = $request['personalinformation'];
-        // $likestyle=$input[0];
-        // $introduction=$input[1];
-        // $user->likestyle = $likestyle;
-        // $user->introduction = $introduction;
-        // $user->save();
+        $user = $request->user();
+        $user->likestyle = $_POST['likestyle'];
+        $user->introduction = $_POST['introduction'];
+        $user->save();
+        return redirect('/users/questions/personalinformation');
     }
-     public function RegisterClothes()
+     public function registerclothes()
     {
-        return view('/users/questions/RegisterClothes');
+        return view('/users/questions/registerclothes');
     }
     public function register(Request $request)
     {
         $clothes = $request->clothe();
-        $input = $request['register'];
-        dd($request);
+        $clothes->clothes_name = $POST['clothename'];
+        $clothes->clothes_thickness = $POST['clothethickness'];
+        $clothes->clothes_color= $POST['clothecolor'];
+        $clothes->clothes_style = $POST['clothestyle'];
+        $clothes->save();
+        // echo $POST;
+        return redirect('/users/questions/registerclothes');
+        
+        // echo $clothes;
     }
      public function outfit()
     {

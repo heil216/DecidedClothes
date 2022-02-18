@@ -12,7 +12,7 @@ Route::get('/users/questions/personalinformation','PostController@personalinform
     ->name('step2');
 Route::post('/profile','PostController@profile')
     ->name('profile');
-Route::get('/users/questions/Clothes','PostController@RegisterClothes')
+Route::get('/users/questions/clothes','PostController@registerclothes')
     ->name('step3');
 Route::post('/register','PostController@register')
     ->name('register');
