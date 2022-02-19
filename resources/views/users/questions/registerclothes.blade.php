@@ -13,7 +13,6 @@
                 <option value="clothes[薄め]">薄め</option>
             </select>
             
-            <label for="ClotheColor">色</label>
             <!--<select id="ClotheColor" name="color">-->
             <!--    <option value="黒">黒</option>-->
             <!--    <option value="グレー">グレー</option>-->
@@ -29,12 +28,14 @@
             <!--    <option value="紫">紫</option>-->
             <!--    <option value="ピンク">ピンク</option>-->
             <!--</select>-->
-            
-            <select id="ClotheColor" name="color">                          
-                @foreach( as $color)
-                    <option value="{{ $score }}">{{ $score }}</option>
-                @endforeach
-            </select>
+            <div clas="clothes_color-group">
+                <label for="clothescolor-id">色<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
+                <select class="form-control" id="clothescolor-id" name="color">                          
+                    @foreach($clothescolors as $clothescolor)
+                        <option value="cloths[{{ $clothescolor->colors_id }}]">{{ $clothescolor->name }}</option>
+                    @endforeach
+                </select>
+            </div>
             
             <label for="ClotheStyle">系統</label>
             <select id="ClotheStyle" name="style">

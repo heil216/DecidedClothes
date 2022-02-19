@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClothescolorsTable extends Migration
+class ChangeNameColumnClothescolorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateClothescolorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('clothescolors', function (Blueprint $table) {
-            $table->bigIncrements('colors_id');
-            $table->string('name',8)->nullable();
-            $table->timestamps();
+        Schema::table('clothescolors', function (Blueprint $table) {
+            $table->string('name', 255)->change();
         });
     }
 
@@ -27,6 +25,8 @@ class CreateClothescolorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clothescolors');
+        Schema::table('clothescolors', function (Blueprint $table) {
+            $table->string('name', 8)->change();
+        });
     }
 }

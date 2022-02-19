@@ -5,10 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
 use App\sertypes;
+use App\Clothescolor;
+use App\Clothe;
 
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->clothescolor = new Clothescolor();
+    //     $clothescolors = $this->clothescolor->get();
+    }
     public function index()
     {
         return view('index');
@@ -24,7 +31,7 @@ class PostController extends Controller
         $output = array_count_values($input);
         $max = array_keys($output, max($output));
         $personalseason  = $max[0];
-        echo "あなたは $personalseason  タイプです！！";
+        // echo "あなたは $personalseason  タイプです！！";
         $user->personalseason = $personalseason;
         $user->save();
         return redirect('/users/questions/personalcolor');
@@ -41,18 +48,20 @@ class PostController extends Controller
         $user->save();
         return redirect('/users/questions/personalinformation');
     }
-     public function registerclothes()
+     public function registerclothes(Request $request)
     {
-        return view('/users/questions/registerclothes');
+        $clothescolors = $this->clothescolor->get();
+        return view('/users/questions/registerclothes', compact('clothescolors'));
+        // return view('/users/questions/registerclothes');
     }
     public function register(Request $request,Clothe $clothe)
     {
         $clothe = $request->clothe();
         dd($clothes);
-        $clothe->clothes_name = $POST['clothename'];
-        $clothe->clothes_thickness = $POST['clothethickness'];
-        $clothe->clothes_color= $POST['clothecolor'];
-        $clothe->clothes_style = $POST['clothestyle'];
+        // $clothe->clothes_name = $POST['clothename'];
+        // $clothe->clothes_thickness = $POST['clothethickness'];
+        // $clothe->clothes_color= $POST['clothecolor'];
+        // $clothe->clothes_style = $POST['clothestyle'];
         
         $clothes->save();
         $input = $request['post'];
