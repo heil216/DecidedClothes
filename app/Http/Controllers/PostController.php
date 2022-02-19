@@ -45,18 +45,19 @@ class PostController extends Controller
     {
         return view('/users/questions/registerclothes');
     }
-    public function register(Request $request)
+    public function register(Request $request,Clothe $clothe)
     {
-        $clothes = $request->clothe();
-        $clothes->clothes_name = $POST['clothename'];
-        $clothes->clothes_thickness = $POST['clothethickness'];
-        $clothes->clothes_color= $POST['clothecolor'];
-        $clothes->clothes_style = $POST['clothestyle'];
-        $clothes->save();
-        // echo $POST;
-        return redirect('/users/questions/registerclothes');
+        $clothe = $request->clothe();
+        dd($clothes);
+        $clothe->clothes_name = $POST['clothename'];
+        $clothe->clothes_thickness = $POST['clothethickness'];
+        $clothe->clothes_color= $POST['clothecolor'];
+        $clothe->clothes_style = $POST['clothestyle'];
         
-        // echo $clothes;
+        $clothes->save();
+        $input = $request['post'];
+        $post->fill($input)->save();
+        return redirect('/posts/' . $post->id);
     }
      public function outfit()
     {

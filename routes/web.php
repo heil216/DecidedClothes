@@ -14,7 +14,7 @@ Route::post('/profile','PostController@profile')
     ->name('profile');
 Route::get('/users/questions/clothes','PostController@registerclothes')
     ->name('step3');
-Route::post('/register','PostController@register')
+Route::post('/','PostController@register')
     ->name('register');
 Route::get('/outfit','PostController@outfit')
     ->name('outfit');  

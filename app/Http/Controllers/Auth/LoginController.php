@@ -18,7 +18,16 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
-
+    private const GUEST_USER_ID = 1;
+    
+     public function guestLogin()
+    {
+        if (Auth::loginUsingId(self::GUEST_USER_ID)) {
+            return redirect('/');
+        }
+        return redirect('/');
+    }
+    
     use AuthenticatesUsers;
 
     /**

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeClothesColumnOfClothesTable extends Migration
+class DeleteClothesTypeColumnOfClothesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class ChangeClothesColumnOfClothesTable extends Migration
     public function up()
     {
         Schema::table('clothes', function (Blueprint $table) {
-            //
+            $table->dropColumn('clothes_type');
         });
     }
 
@@ -26,12 +26,7 @@ class ChangeClothesColumnOfClothesTable extends Migration
     public function down()
     {
         Schema::table('clothes', function (Blueprint $table) {
-            $table->string('clothes_name')->nullable()->change();
-            $table->string('clothes_type')->nullable()->change();
-            $table->string('clothes_thickness')->nullable()->change();
-            $table->string('clothes_style')->nullable()->change();
-            $table->string('clothes_color')->nullable()->change();
-            $table->string('where_buy')->nullable()->change();
+            $table->boolean('clothes_type')->default(false);
         });
     }
 }
