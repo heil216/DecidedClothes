@@ -14,8 +14,10 @@ Route::post('/profile','PostController@profile')
     ->name('profile');
 Route::get('/users/questions/clothes','PostController@registerclothes')
     ->name('step3');
-Route::post('/','PostController@register')
-    ->name('register');
+// Route::post('/users/questions/clothes','PostController@registerclothes');
+// Route::get('/register', 'FileUpController@index');
+Route::post('/add','PostController@add')
+    ->name('add');
 Route::get('/outfit','PostController@outfit')
     ->name('outfit');  
 Auth::routes();
