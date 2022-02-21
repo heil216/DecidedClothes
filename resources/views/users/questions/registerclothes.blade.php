@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','AddClothes')
+@section('title','洋服追加')
 @section('content')
 
         <form method="POST" action="{{route('add') }}"　enctype="multipart/form-data">
@@ -11,10 +11,16 @@
             <label>服の名称
                 <input type="text" name="clothes[name]" placeholder="○○パーカー"><span class="badge badge-danger ml-2">{{ __('必須') }}</span>
             </label>
-            <label for="Thickness">厚み</label>
+            <label for="Type">種類<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
+            <select id="Type" name="clothes[type]">
+                <option value="top">top</option>
+                <option value="bottom">bottom</option>
+                <option value="shoe">shoe</option>
+            </select>
+            <label for="Thickness">厚み<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
             <select id="Thickness" name="clothes[thickness]">
-                <option value="厚め">厚め</option>
-                <option value="薄め">薄め</option>
+                <option value="冬用">冬用</option>
+                <option value="夏用">夏用</option>
             </select>
             <div clas="clothes_color-group">
                 <label for="clothescolor-id">色<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
@@ -41,6 +47,6 @@
         <p>COLLECT!!!</p>
         [<a href="{{ route('step3') }}">続ける</a>]
         [<a href="{{ route('index') }}">HOMEに戻る</a>]
-        [<a href="{{ route('outfit') }}">コーデを組む</a>]
+        [<a href="{{ route('result') }}">コーデを組む</a>]
     </section>
 @endsection

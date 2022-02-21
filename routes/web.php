@@ -18,10 +18,12 @@ Route::get('/users/questions/registerclothes','PostController@registerclothes')
 // Route::get('/register', 'FileUpController@index');
 Route::post('/add','PostController@add')
     ->name('add');
-Route::get('/outfit','PostController@outfit')
-    ->name('outfit');  
+Route::get('/result','PostController@result')
+    ->name('result');  
 Route::get('/look/home','PostController@lookhome')
     ->name('lookhome');
+Route::get('/users/list','PostController@list')
+    ->name('list');
 Auth::routes();
 Route::get('/home', 'HomeController@index')
     ->name('home');

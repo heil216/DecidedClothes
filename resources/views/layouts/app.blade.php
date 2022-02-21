@@ -40,16 +40,16 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('index') }}">{{ __('HOME') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('step3') }}">{{ __('服を追加する') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('lookhome') }}">{{ __('服を見る') }}</a>
+                        </li>
                         @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('index') }}">{{ __('HOME') }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('step3') }}">{{ __('服を追加する') }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('lookhome') }}">{{ __('服を見る') }}</a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('ログイン') }}</a>
                             </li>

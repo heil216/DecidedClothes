@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@section('title','LookHome')
+@section('title','服を見る')
 
 @section('content')
-    <p>カジュアル</p>
-    <p>きれい</p>
+    <a href="{{ route('list') }}">自分の服を見る</a>
+    <p>人の服を見る</p>
 @endsection

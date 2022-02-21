@@ -63,13 +63,14 @@ class PostController extends Controller
         $input = $request["clothes"];
         // logger($input);
         // logger($input['style']);
-        // // dd($input);
+        // dd($input);
         // $clothes->fill($input)->save();
         // dd($clothe);
         $clothes->name = $input['name'];
         $clothes->thickness= $input['thickness'];
         $clothes->style= $input['style'];
         $clothes->color= $input['color'];
+        $clothes->type= $input['type'];
         $clothes->where_buy= $input['where_buy'];
         
         $clothes->save();
@@ -90,12 +91,17 @@ class PostController extends Controller
         // $data->save();
        
     }
-     public function outfit()
+     public function result()
     {
-        return view('/users/outfit');
+        return view('/users/result');
     }
      public function lookhome()
     {
         return view('/look/home');
+    }
+    public function list(Clothe $clothe)
+    {
+        // $clothe = new Clothe;
+        return view('/users/list')->with(['clothes' => $clothe->getPaginateByLimit()]);
     }
 }

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','UserProfile')
+@section('title','ユーザー情報')
 
 @section('content')
     <form method="post" action=" {{ route('profile') }}">

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','ParsonalColor')
+@section('title','パーソナルカラー診断')
 @section('content')
         <form method="post" action=" {{ route('diagnose') }}">
             @csrf
