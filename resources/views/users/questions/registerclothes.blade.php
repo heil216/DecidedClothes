@@ -1,6 +1,6 @@
 @extends('components.layouts')
 @extends('layouts.app')
-@section('title','PutClothesStore')
+@section('title','AddClothes')
 @section('content')
 
         <form method="POST" action="{{route('add') }}"　enctype="multipart/form-data">
