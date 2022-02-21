@@ -59,19 +59,22 @@ class PostController extends Controller
     }
     public function add(Request $request,Clothe $clothe)
     {
-        // dd($request);
-        $clothe = $request->Clothe();
-        dd($clothe);
+        $clothes = new Clothe;
+        $input = $request["clothes"];
+        // logger($input);
+        // logger($input['style']);
+        // // dd($input);
+        // $clothes->fill($input)->save();
+        // dd($clothe);
+        $clothes->name = $input['name'];
+        $clothes->thickness= $input['thickness'];
+        $clothes->style= $input['style'];
+        $clothes->color= $input['color'];
+        $clothes->where_buy= $input['where_buy'];
         
-        // $clothe->clothes_name = $POST['clothename'];
-        // $clothe->clothes_thickness = $POST['clothethickness'];
-        // $clothe->clothes_color= $POST['clothecolor'];
-        // $clothe->clothes_style = $POST['clothestyle'];
-        
-        // $clothes->save();
-        // $input = $request['post'];
-        // $post->fill($input)->save();
-        // return redirect('/posts/' . $post->id);
+        $clothes->save();
+
+        return redirect('/users/questions/registerclothes');
         
         // $data = FileImage::all();
         // // ビューfile.blade.phpに$dataを渡して表示させる
@@ -90,5 +93,9 @@ class PostController extends Controller
      public function outfit()
     {
         return view('/users/outfit');
+    }
+     public function lookhome()
+    {
+        return view('/look/home');
     }
 }

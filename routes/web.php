@@ -12,7 +12,7 @@ Route::get('/users/questions/personalinformation','PostController@personalinform
     ->name('step2');
 Route::post('/profile','PostController@profile')
     ->name('profile');
-Route::get('/users/questions/clothes','PostController@registerclothes')
+Route::get('/users/questions/registerclothes','PostController@registerclothes')
     ->name('step3');
 // Route::post('/users/questions/clothes','PostController@registerclothes');
 // Route::get('/register', 'FileUpController@index');
@@ -20,5 +20,8 @@ Route::post('/add','PostController@add')
     ->name('add');
 Route::get('/outfit','PostController@outfit')
     ->name('outfit');  
+Route::get('/look/home','PostController@lookhome')
+    ->name('lookhome');
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')
+    ->name('home');
