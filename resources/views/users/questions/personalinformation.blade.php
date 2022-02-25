@@ -12,7 +12,8 @@
                 <option value="古着">古着</option>
             </select>
         <label>自己紹介
-            <textarea name="introduction"placeholder="よろしくお願いします！" cols="50" rows="3"></textarea><span class="badge badge-danger ml-2">{{ __('必須') }}</span>
+            <textarea name="introduction" placeholder="よろしくお願いします！" value="{{ old('introduction') }}"cols="50" rows="3"></textarea><span class="badge badge-danger ml-2">{{ __('必須') }}</span>
+            <p class="introduction__error" style="color:red">{{ $errors->first('introduction') }}</p>
         </label>
         <input type="submit" value="登録する"/>
     </form>

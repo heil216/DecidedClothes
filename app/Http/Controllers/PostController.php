@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PostRequest;
+use App\Http\Requests\UserRequest;
+use App\Http\Requests\ClothesRequest;
 use Illuminate\Http\Request;
 use App\sertypes;
 use App\Clothescolor;
 use App\Clothe;
 use App\Models\FileImage;
-
+use Storage;
 
 
 class PostController extends Controller
@@ -26,7 +27,7 @@ class PostController extends Controller
     {
         return view('/users/questions/personalcolor');
     }
-     public function diagnose(Request $request)
+     public function diagnose(UserRequest $request)
     {
         $user = $request->user();
         $input = $request['question'];
@@ -36,42 +37,54 @@ class PostController extends Controller
         // echo "あなたは $personalseason  タイプです！！";
         $user->personalseason = $personalseason;
         $user->save();
-        return redirect('/users/questions/personalcolor');
+        return redirect('/');
     }
     public function personalinformation()
     {
         return view('/users/questions/personalinformation');
     }
-    public function profile(Request $request)
+    public function profile(UserRequest $request)
     {
         $user = $request->user();
         $user->likestyle = $_POST['likestyle'];
         $user->introduction = $_POST['introduction'];
         $user->save();
-        return redirect('/users/questions/personalinformation');
+        return redirect('/');
     }
-     public function registerclothes(Request $request,FileImage $data)
+     public function registerclothes(Request $request)
     {
         $clothescolors = $this->clothescolor->get();
         return view('/users/questions/registerclothes', compact('clothescolors'));
         // return view('/users/questions/registerclothes');
          // データベースからfile_imagesテーブルにある全データを抽出
     }
-    public function add(Request $request,Clothe $clothe)
+    public function add(ClothesRequest $request)
     {
+        // dd($request);
         $clothes = new Clothe;
         $input = $request["clothes"];
+        $image = $request->file('image');
+        // $form = $request->all();
         // logger($input);
         // logger($input['style']);
         // dd($input);
         // $clothes->fill($input)->save();
         // dd($clothe);
+        // dd($image);
+        $path = Storage::disk('s3')->putFile('clothes-img/', $image, 'public');
+        $clothes->image_path = Storage::disk('s3')->url($path);
         $clothes->name = $input['name'];
         $clothes->thickness= $input['thickness'];
         $clothes->style= $input['style'];
         $clothes->color= $input['color'];
         $clothes->type= $input['type'];
         $clothes->where_buy= $input['where_buy'];
+        
+        // if($request->image){
+
+        //     if($request->image->extension() == 'gif' || $request->image->extension() == 'jpeg' || $request->image->extension() == 'jpg' || $request->image->extension() == 'png'){
+        //     $clothes=$request->file('image')->storeAs('public/image', $clothes->id.'.'.$request->image->extension());
+        //     }
         
         $clothes->save();
 
@@ -101,7 +114,7 @@ class PostController extends Controller
     }
     public function list(Clothe $clothe)
     {
-        // $clothe = new Clothe;
-        return view('/users/list')->with(['clothes' => $clothe->getPaginateByLimit()]);
+        $clothes = Clothe::all();
+        return view('/users/list', ['clothes' => $clothes])->with(['clothes' => $clothe->getPaginateByLimit()]);
     }
 }

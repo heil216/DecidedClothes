@@ -50,6 +50,7 @@
             <label><input type="radio" name="question[goodrip]" value="Summer">ピンク、ローズ系。明るくやわらかな発色。</label>
             <label><input type="radio" name="question[goodrip]" value="Autumn">くすみオレンジ・ブラウン系。落ち着いた発色。</label>
             <label><input type="radio" name="question[goodrip]" value="Winter">フューシャピンク・ボルドー系。鮮やかor深みのある発色。</label>
+            <label><input type="radio" name="question[goodrip]" value="Noimage">分からない</label>
             </fieldset>
             
             <fieldset>
@@ -58,6 +59,7 @@
             <label><input type="radio" name="question[badrip]" value="Summer">オレンジ・レッド系。オレンジ系や高発色だと唇だけ目立つ。</label>
             <label><input type="radio" name="question[badrip]" value="Autumn">フューシャピンク・ローズ系。青みが強いと肌から浮いて派手になる。</label>
             <label><input type="radio" name="question[badrip]" value="Winter">ベージュ系、薄い色だとパッとせずにぼやける。</label>
+            <label><input type="radio" name="question[badrip]" value="Noimage">分からない</label>
             </fieldset>
             
             <fieldset>
@@ -95,6 +97,6 @@
         </form>
         <!--<p>戻る</p>-->
   
-        <!--[<a href="{{ route('step2') }}">STEP2に進む</a>]-->
+        <!--[<a href="{{ route('index') }}">STEP2に進む</a>]-->
         [<a href="{{ route('index') }}">HOMEに戻る</a>]
 @endsection

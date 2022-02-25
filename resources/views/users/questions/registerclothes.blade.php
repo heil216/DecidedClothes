@@ -2,14 +2,16 @@
 @section('title','洋服追加')
 @section('content')
 
-        <form method="POST" action="{{route('add') }}"　enctype="multipart/form-data">
+        <form method="POST" action="{{route('add') }}" enctype="multipart/form-data">
             @csrf
             
             <label>画像選択
-                <input type="file" name="clothes[img]" accept=".png,.jpg,.jpeg,image/png,image/jpg"><span class="badge badge-danger ml-2">{{ __('必須') }}</span>
+                <input type="file" name="image" accept=".png,.jpg,.jpeg,image/png,image/jpg">
+                <p class="image__error" style="color:red">{{ $errors->first('image') }}</p>
             </label>
             <label>服の名称
-                <input type="text" name="clothes[name]" placeholder="○○パーカー"><span class="badge badge-danger ml-2">{{ __('必須') }}</span>
+                <input type="text" name="clothes[name]" placeholder="○○パーカー" value="{{ old('clothes.name') }}"><span class="badge badge-danger ml-2">{{ __('必須') }}</span>
+                <p class="name__error" style="color:red">{{ $errors->first('clothes.name') }}</p>
             </label>
             <label for="Type">種類<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
             <select id="Type" name="clothes[type]">
