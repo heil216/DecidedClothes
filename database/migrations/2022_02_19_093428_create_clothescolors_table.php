@@ -15,7 +15,7 @@ class CreateClothescolorsTable extends Migration
     {
         Schema::create('clothescolors', function (Blueprint $table) {
             $table->bigIncrements('colors_id');
-            $table->string('name',8)->nullable();
+            $table->string('name',255)->nullable();
             $table->timestamps();
         });
     }

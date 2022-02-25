@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\SeasonRequest;
+use App\Http\Requests\MyProfileRequest;
 use App\Http\Requests\ClothesRequest;
 use Illuminate\Http\Request;
 use App\sertypes;
@@ -27,7 +28,7 @@ class PostController extends Controller
     {
         return view('/users/questions/personalcolor');
     }
-     public function diagnose(UserRequest $request)
+     public function diagnose(SeasonRequest $request)
     {
         $user = $request->user();
         $input = $request['question'];
@@ -43,9 +44,12 @@ class PostController extends Controller
     {
         return view('/users/questions/personalinformation');
     }
-    public function profile(UserRequest $request)
+    public function profile(MyProfileRequest $request)
     {
         $user = $request->user();
+        $image = $request->file('icon');
+        $path = Storage::disk('s3')->putFile('users-img/', $image, 'public');
+        $user->icon_path = Storage::disk('s3')->url($path);
         $user->likestyle = $_POST['likestyle'];
         $user->introduction = $_POST['introduction'];
         $user->save();
@@ -55,22 +59,12 @@ class PostController extends Controller
     {
         $clothescolors = $this->clothescolor->get();
         return view('/users/questions/registerclothes', compact('clothescolors'));
-        // return view('/users/questions/registerclothes');
-         // データベースからfile_imagesテーブルにある全データを抽出
     }
     public function add(ClothesRequest $request)
     {
-        // dd($request);
         $clothes = new Clothe;
         $input = $request["clothes"];
         $image = $request->file('image');
-        // $form = $request->all();
-        // logger($input);
-        // logger($input['style']);
-        // dd($input);
-        // $clothes->fill($input)->save();
-        // dd($clothe);
-        // dd($image);
         $path = Storage::disk('s3')->putFile('clothes-img/', $image, 'public');
         $clothes->image_path = Storage::disk('s3')->url($path);
         $clothes->name = $input['name'];
@@ -80,28 +74,9 @@ class PostController extends Controller
         $clothes->type= $input['type'];
         $clothes->where_buy= $input['where_buy'];
         
-        // if($request->image){
-
-        //     if($request->image->extension() == 'gif' || $request->image->extension() == 'jpeg' || $request->image->extension() == 'jpg' || $request->image->extension() == 'png'){
-        //     $clothes=$request->file('image')->storeAs('public/image', $clothes->id.'.'.$request->image->extension());
-        //     }
-        
         $clothes->save();
 
         return redirect('/users/questions/registerclothes');
-        
-        // $data = FileImage::all();
-        // // ビューfile.blade.phpに$dataを渡して表示させる
-        // return view('file', compact('data'));
-        // $path = $request->img->store('public/images');
-        // // パスから、最後の「ファイル名.拡張子」の部分だけ取得します 例)sample.jpg
-        // $filename = basename($path);
-        // // FileImageをインスタンス化(実体化)します
-        // $data = new FileImage;
-        // // 登録する項目に必要な値を代入します
-        // $data->file_name = $filename;
-        // // データベースに保存します
-        // $data->save();
        
     }
      public function result()

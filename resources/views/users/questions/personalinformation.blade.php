@@ -2,9 +2,12 @@
 @section('title','ユーザー情報')
 
 @section('content')
-    <form method="post" action=" {{ route('profile') }}">
+    <form method="post" action=" {{ route('profile') }}" enctype="multipart/form-data">
         @csrf
         
+        <label>画像選択
+            <input type="file" name="icon" accept=".png,.jpg,.jpeg,image/png,image/jpg">
+        </label>
         <label for="likestyle">好きなスタイル<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
             <select id="likestyle" name="likestyle">
                 <option value="きれい系">きれい系</option>
