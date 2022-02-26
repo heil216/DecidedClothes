@@ -31,3 +31,4 @@ Route::get('/users/list','PostController@list')
 Auth::routes();
 Route::get('/home', 'HomeController@index')
     ->name('home');
+Route::get('/', 'WeatherController@index');
