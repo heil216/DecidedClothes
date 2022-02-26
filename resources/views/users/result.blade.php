@@ -8,4 +8,4 @@
         <button>これでいく！</button>
         <a href="{{ route('result') }}">やり直す</a>
         <a href="{{ route('index') }}">HOMEに戻る</a>
-@section
+@endsection

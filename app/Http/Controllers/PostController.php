@@ -55,6 +55,16 @@ class PostController extends Controller
         $user->save();
         return redirect('/');
     }
+    public function todaymood()
+    {
+        return view("/users/questions/today'smood");
+    }
+    public function coordinate(Request $request)
+    {
+        $mood = $request['mood'];
+        // dd($mood);
+        return view('/users/result');
+    }
      public function registerclothes(Request $request)
     {
         $clothescolors = $this->clothescolor->get();
@@ -79,10 +89,10 @@ class PostController extends Controller
         return redirect('/users/questions/registerclothes');
        
     }
-     public function result()
-    {
-        return view('/users/result');
-    }
+    //  public function result()
+    // {
+    //     return view('/users/result');
+    // }
      public function lookhome()
     {
         return view('/look/home');
