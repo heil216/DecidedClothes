@@ -22,7 +22,7 @@ class WeatherController extends Controller
         $data = $response->getBody();
         $data = json_decode($data, true);
         // $weather=JSON.parse(response.getContentText());
-        dd($data);
+        // dd($data);
         
         return response()->json($data);
     }

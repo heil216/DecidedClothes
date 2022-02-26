@@ -4,7 +4,7 @@
 @section('content')
     <h1>一覧</h1>
         @foreach ($clothes as $clothe)
-            <img src="{{ asset('storage/image/' . $clothe->image_path) }}">
+            <img src="{{ $clothe->image_path) }}">
             <h3 class='name'>{{ $clothe->name }}</h3>
             <p class='type'>{{ $clothe->type }}</p>
             <p class='color'>{{ $clothe->color }}</p>
