@@ -10,7 +10,6 @@
     <section>
         <p>初めての方はこちらから</p>
         <p>クローゼットに服を追加する</p>
-        <p>コーデを組む</p>
         <a href="{{ route('todaymood') }}">コーデを組む</a>
     </section>
     

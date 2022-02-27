@@ -48,7 +48,7 @@ class PostController extends Controller
     {
         $user = $request->user();
         $image = $request->file('icon');
-        $path = Storage::disk('s3')->putFile('users-img/', $image, 'public');
+        $path = Storage::disk('s3')->putFile('icon-img', $image, 'public');
         $user->icon_path = Storage::disk('s3')->url($path);
         $user->likestyle = $_POST['likestyle'];
         $user->introduction = $_POST['introduction'];
@@ -75,7 +75,7 @@ class PostController extends Controller
         $clothes = new Clothe;
         $input = $request["clothes"];
         $image = $request->file('image');
-        $path = Storage::disk('s3')->putFile('clothes-img/', $image, 'public');
+        $path = Storage::disk('s3')->putFile('clothes-img', $image, 'public');
         $clothes->image_path = Storage::disk('s3')->url($path);
         $clothes->name = $input['name'];
         $clothes->thickness= $input['thickness'];
@@ -100,6 +100,17 @@ class PostController extends Controller
     public function list(Clothe $clothe)
     {
         $clothes = Clothe::all();
-        return view('/users/list', ['clothes' => $clothes])->with(['clothes' => $clothe->getPaginateByLimit()]);
+        return view('/users/clothes/list', ['clothes' => $clothes])->with(['clothes' => $clothe->getPaginateByLimit()]);
+    }
+    public function show(Clothe $clothe)
+    {
+        $clothes = new Clothe;
+        return view('/users/clothes/show')->with(['clothes' => $clothe]);
+    }
+    public function delete(Clothe $clothe)
+    {
+        $clothe->delete();
+        return redirect('/users/clothes/list');
+        
     }
 }

@@ -23,11 +23,15 @@ Route::group(['middleware' => ['auth']], function(){
         ->name('add');
     Route::get('/result','PostController@result')
         ->name('result');  
+    Route::get('/users/clothes/list','PostController@list')
+        ->name('list');
+    Route::get('/users/clothes/{clothe}', 'PostController@show')
+        ->name('show');
+    Route::delete('/users/clothes/{clothe}', 'PostController@delete')
+        ->name('delete');
 });
 Route::get('/look/home','PostController@lookhome')
     ->name('lookhome');
-Route::get('/users/list','PostController@list')
-    ->name('list');
 Auth::routes();
 Route::get('/home', 'HomeController@index')
     ->name('home');

@@ -16,6 +16,7 @@ class CreateClothesTable extends Migration
         Schema::create('clothes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->softDeletes();
             $table->string('image_path');
             $table->string('name')->nullable();
             $table->string('type');
