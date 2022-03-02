@@ -6,6 +6,7 @@ use App\Http\Requests\SeasonRequest;
 use App\Http\Requests\MyProfileRequest;
 use App\Http\Requests\ClothesRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\sertypes;
 use App\Clothescolor;
 use App\Clothe;
@@ -37,6 +38,10 @@ class PostController extends Controller
         $personalseason  = $max[0];
         // echo "あなたは $personalseason  タイプです！！";
         $user->personalseason = $personalseason;
+        
+        // if($personalseason === 'SUMER'){
+        //     $personalseason = 1
+        // }
         $user->save();
         return redirect('/');
     }
@@ -70,21 +75,25 @@ class PostController extends Controller
         $clothescolors = $this->clothescolor->get();
         return view('/users/questions/registerclothes', compact('clothescolors'));
     }
-    public function add(ClothesRequest $request)
+    public function add(ClothesRequest $request,Clothe $clothe)
     {
-        $clothes = new Clothe;
+        $clothe = new Clothe;
         $input = $request["clothes"];
         $image = $request->file('image');
         $path = Storage::disk('s3')->putFile('clothes-img', $image, 'public');
-        $clothes->image_path = Storage::disk('s3')->url($path);
-        $clothes->name = $input['name'];
-        $clothes->thickness= $input['thickness'];
-        $clothes->style= $input['style'];
-        $clothes->color= $input['color'];
-        $clothes->type= $input['type'];
-        $clothes->where_buy= $input['where_buy'];
+        $clothe->image_path = Storage::disk('s3')->url($path);
+        $clothe->season_type= $input['season_type'];
+        $clothe->style= $input['style'];
+        $clothe->category= $input['category'];
+        $clothe->color= $input['color'];
+        $clothe->type= $input['type'];
+        $clothe->brand_name= $input['brand_name'];
+        // dd($clothe);
+        $clothe->save();
         
-        $clothes->save();
+        // $user = Auth::id();
+        // // dd($user);
+        // $clothe->users()->attach($user); 
 
         return redirect('/users/questions/registerclothes');
        
@@ -99,13 +108,13 @@ class PostController extends Controller
     }
     public function list(Clothe $clothe)
     {
-        $clothes = Clothe::all();
-        return view('/users/clothes/list', ['clothes' => $clothes])->with(['clothes' => $clothe->getPaginateByLimit()]);
+        // $clothes = Clothe::all();
+        return view('/users/clothes/list', )->with(['clothes' => $clothe->getPaginateByLimit()]);
     }
     public function show(Clothe $clothe)
     {
-        $clothes = new Clothe;
-        return view('/users/clothes/show')->with(['clothes' => $clothe]);
+        // $clothes = new Clothe;
+        return view('/users/clothes/show')->with(['clothe' => $clothe]);
     }
     public function delete(Clothe $clothe)
     {

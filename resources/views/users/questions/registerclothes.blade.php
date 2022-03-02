@@ -9,20 +9,27 @@
                 <input type="file" name="image" accept=".png,.jpg,.jpeg,image/png,image/jpg">
                 <p class="image__error" style="color:red">{{ $errors->first('image') }}</p>
             </label>
-            <label>服の名称
-                <input type="text" name="clothes[name]" placeholder="○○パーカー" value="{{ old('clothes.name') }}"><span class="badge badge-danger ml-2">{{ __('必須') }}</span>
-                <p class="name__error" style="color:red">{{ $errors->first('clothes.name') }}</p>
+            <label>ブランド名
+                <input type="text" name="clothes[brand_name]" placeholder="○○パーカー" value="{{ old('clothes.brand_name') }}"><span class="badge badge-danger ml-2">{{ __('必須') }}</span>
+                <p class="name__error" style="color:red">{{ $errors->first('clothes.brand_name') }}</p>
             </label>
-            <label for="Type">種類<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
+            <label for="Type">性別<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
             <select id="Type" name="clothes[type]">
+                <option value="MEN">MEN</option>
+                <option value="WOMEN">WOMEN</option>
+                <option value="UNISEX">UNISEX</option>
+            </select>
+            <label for="Type">カテゴリー<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
+            <select id="Type" name="clothes[category]">
                 <option value="top">top</option>
                 <option value="bottom">bottom</option>
                 <option value="shoe">shoe</option>
             </select>
-            <label for="Thickness">厚み<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
-            <select id="Thickness" name="clothes[thickness]">
-                <option value="冬用">冬用</option>
-                <option value="夏用">夏用</option>
+            <label for="Season_type">季節感<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
+            <select id="Season_type" name="clothes[season_type]">
+                <option value="春・秋">春・秋</option>
+                <option value="夏">夏</option>
+                <option value="冬">冬</option>
             </select>
             <div clas="clothes_color-group">
                 <label for="clothescolor-id">色<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
@@ -34,12 +41,9 @@
             </div>
             <label for="ClotheStyle">系統<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
             <select id="ClotheStyle" name="clothes[style]">
-                <option value="カジュアル">カジュアル</option>
-                <option value="きれい">きれい</option>
+                <option value="カジュアル">カジュアル系</option>
+                <option value="きれい">きれい系</option>
             </select>
-            <label>購入場所
-                <textarea name="clothes[where_buy]"placeholder="原宿/amazon" cols="30" rows="1"></textarea>
-            </label>
             <input type="submit" value="クローゼットに追加する"/>
         </form>
         

@@ -25,11 +25,12 @@ class ClothesRequest extends FormRequest
     {
         return [
             'image'  => 'required',
-            'clothes.name'  => 'required|string|',
+            'clothes.brand_name'  => 'required|string|',
             'clothes.type'  => 'required',
-            'clothes.thickness'  => 'required',
+            'clothes.season_type'  => 'required',
             'clothes.color'  => 'required',
             'clothes.style'  => 'required',
+            'clothes.category'  => 'required',
         ];
     }
 }

@@ -6,7 +6,8 @@
         @csrf
         
         <label>画像選択
-            <input type="file" name="icon" accept=".png,.jpg,.jpeg,image/png,image/jpg">
+            <input type="file" name="icon" value="{{ old('introduction') }}" accept=".png,.jpg,.jpeg,image/png,image/jpg">
+            <p class="icon__error" style="color:red">{{ $errors->first('icon') }}</p>
         </label>
         <label for="likestyle">好きなスタイル<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
             <select id="likestyle" name="likestyle">
@@ -15,7 +16,7 @@
                 <option value="古着">古着</option>
             </select>
         <label>自己紹介
-            <textarea name="introduction" placeholder="よろしくお願いします！" value="{{ old('introduction') }}"cols="50" rows="3"></textarea><span class="badge badge-danger ml-2">{{ __('必須') }}</span>
+            <input type="text" name="introduction" placeholder="よろしくお願いします！" value="{{ old('introduction') }}" cols="50" rows="3"><span class="badge badge-danger ml-2">{{ __('必須') }}</span>
             <p class="introduction__error" style="color:red">{{ $errors->first('introduction') }}</p>
         </label>
         <input type="submit" value="登録する"/>

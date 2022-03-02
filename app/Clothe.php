@@ -8,11 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Clothe extends Model
 {
     protected $fillable = [
-        'name','thickness','style ','color',' where_buy ','image_path',
+        'brand_name','season_type','style ','color',' category ','image_path','type',
     ];
+    // protected $table = 'User_clothe';
     public function getPaginateByLimit(int $limit_count = 5)
     {
     return $this->orderBy('updated_at', 'DESC')->paginate($limit_count);
+    }
+    public function users(){
+    return $this->belongsToMany("App\User","user_location");
     }
 }
 

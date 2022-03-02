@@ -24,6 +24,7 @@ class MyProfileRequest extends FormRequest
     public function rules()
     {
         return [
+            'icon' => 'required',
             'introduction' => 'required|string|max:150',
         ];
     }

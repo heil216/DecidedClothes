@@ -2,15 +2,16 @@
 @section('title','詳細')
 
 @section('content')
-        <h3 class='name'>{{ $clothes->name }}</h3>
-        <img src="{{ $clothes->image_path }}">
-        <p class='type'>{{ $clothes->type }}</p>
-        <p class='color'>{{ $clothes->color }}</p>
-        <p class='thickness'>{{ $clothes->thickness }}</p>
-        <p class='style'>{{ $clothes->style }}</p>
-        <p class='where_buy'>{{ $clothes->where_buy }}</p>
+        <h3 class='name'>{{ $clothe->name }}</h3>
+        <img src="{{ $clothe->image_path }}">
+        <p class='type'>{{ $clothe->type }}</p>
+        <p class='color'>{{ $clothe->color }}</p>
+        <p class='season_type'>{{ $clothe->season_type }}</p>
+        <p class='style'>{{ $clothe->style }}</p>
+        <p class='brand_name'>{{ $clothe->brand_name }}</p>
+        <p class='category'>{{ $clothe->category }}</p>
         
-        <form action="/users/clothes/{{ $clothes->id }}" id="form_{{ $clothes->id }}" method="post" style="display:inline">
+        <form action="/users/clothes/{{ $clothe->id }}" id="form_{{ $clothe->id }}" method="post" style="display:inline">
             @csrf
             @method('DELETE')
             <button type="submit">delete</button> 

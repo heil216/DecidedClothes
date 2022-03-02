@@ -35,7 +35,7 @@ class SeasonRequest extends FormRequest
             'question.basic' => 'required',
             'question.complimented' => 'required',
             'question.firstimpression' => 'required',
-            
+            // 'question.*' => 'required',
         ];
     }
 }

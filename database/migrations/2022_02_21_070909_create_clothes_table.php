@@ -18,12 +18,12 @@ class CreateClothesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->string('image_path');
-            $table->string('name')->nullable();
             $table->string('type');
             $table->string('color');
-            $table->string('thickness');
-            $table->string('style');
-            $table->string('where_buy')->nullable();
+            $table->string('season_type');
+            $table->string('category');
+            $table->string('style'); 
+            $table->string('brand_name');
         });
     }
 
