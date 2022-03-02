@@ -13,11 +13,11 @@ class CreateUserClotheTable extends Migration
      */
     public function up()
     {
-        Schema::create('User_clothe', function (Blueprint $table) {
-            $table->biginteger('users_id')->unsigned();    //students,subjectsテーブルのidが
-            $table->biginteger('clothes_id')->unsigned();    //bigIncrementであった場合はbigIntegerにする
-            $table->primary(['users_id', 'clothes_id']);
-    });
+        Schema::create('user_clothe', function (Blueprint $table) {
+            $table->biginteger('clothe_id');
+            $table->biginteger('user_id');
+            $table->primary(['clothe_id', 'user_id']); 
+        });
     }
 
     /**
@@ -27,6 +27,6 @@ class CreateUserClotheTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('User_clothe');
+        Schema::dropIfExists('user_clothe');
     }
 }

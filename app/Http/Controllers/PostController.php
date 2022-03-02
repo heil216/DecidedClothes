@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\sertypes;
 use App\Clothescolor;
 use App\Clothe;
+use App\User;
 use App\Models\FileImage;
 use Storage;
 
@@ -75,7 +76,7 @@ class PostController extends Controller
         $clothescolors = $this->clothescolor->get();
         return view('/users/questions/registerclothes', compact('clothescolors'));
     }
-    public function add(ClothesRequest $request,Clothe $clothe)
+    public function add(ClothesRequest $request,Clothe $clothe,User $user)
     {
         $clothe = new Clothe;
         $input = $request["clothes"];
@@ -91,9 +92,16 @@ class PostController extends Controller
         // dd($clothe);
         $clothe->save();
         
-        // $user = Auth::id();
-        // // dd($user);
-        // $clothe->users()->attach($user); 
+        // $clothe = App\Clothe::find(1);
+
+        // foreach ($clothes->users as $user) {
+        //         $users = App\Clothe::find(1)->users()->orderBy('updated_at', 'DESC')->get();
+        // }
+        
+        // dd($user);
+        $user_id = Auth::id();
+        // dd($user_id);
+        $clothe->users()->attach($user_id); 
 
         return redirect('/users/questions/registerclothes');
        
