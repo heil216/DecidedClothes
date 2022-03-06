@@ -39,4 +39,16 @@ class User extends Authenticatable
     // public function clothes(){
     // return $this->belongsToMany('App\Clothe');
     // }
+    public function clothes()
+    {
+    return $this->belongsToMany("App\Clothe","clothe_user");
+    }
+    public function clothe()
+    {
+    return $this -> hasMany('App\Clothe');
+    }
+    public function getPaginateByClothe(int $limit_count = 5)
+    {
+        return $this->clothe()->with('user')->orderBy( 'updated_at', 'DESC')->paginate($limit_count);
+    }
 }

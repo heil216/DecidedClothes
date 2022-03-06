@@ -24,6 +24,7 @@ class CreateClothesTable extends Migration
             $table->string('category');
             $table->string('style'); 
             $table->string('brand_name');
+            $table->biginteger('user_id')->unsigned();
         });
     }
 

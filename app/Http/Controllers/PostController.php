@@ -7,6 +7,7 @@ use App\Http\Requests\MyProfileRequest;
 use App\Http\Requests\ClothesRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use GuzzleHttp\Client;
 use App\sertypes;
 use App\Clothescolor;
 use App\Clothe;
@@ -37,12 +38,20 @@ class PostController extends Controller
         $output = array_count_values($input);
         $max = array_keys($output, max($output));
         $personalseason  = $max[0];
+        // dd($personalseason);
         // echo "あなたは $personalseason  タイプです！！";
-        $user->personalseason = $personalseason;
         
-        // if($personalseason === 'SUMER'){
-        //     $personalseason = 1
-        // }
+        if ($personalseason === 'Spring') {
+            $personalcolor = ['ORANGE','YELLOW','RED','PINK','WHITE','NABY'];
+        } elseif ($personalseason === 'Summer') {
+            $personalcolor = ['パープル','水色','グリーン','グレー','ホワイト','ネイビー'];
+        } elseif ($personalseason === 'Autumn') {
+            $personalcolor = ['イエロー','ベージュ','レッド','ブラウン','カーキ'];
+        } else {
+            $personalcolor = ['グリーン','グレー','ブラック','ピンク','ホワイト','ネイビー','ブルー'];
+        }
+        $user->personalcolor = $personalcolor;
+        // dd($user);
         $user->save();
         return redirect('/');
     }
@@ -57,6 +66,7 @@ class PostController extends Controller
         $path = Storage::disk('s3')->putFile('icon-img', $image, 'public');
         $user->icon_path = Storage::disk('s3')->url($path);
         $user->likestyle = $_POST['likestyle'];
+        $user->likestyle = $_POST['gender'];
         $user->introduction = $_POST['introduction'];
         $user->save();
         return redirect('/');
@@ -65,11 +75,66 @@ class PostController extends Controller
     {
         return view("/users/questions/today'smood");
     }
-    public function coordinate(Request $request)
+    public function coordinate(Request $request,User $user)
     {
+        $cityName = 'Tokyo';
+        $apiKey = '10ce5de76e295447fba694a2167d4bc6';
+        $url = "api.openweathermap.org/data/2.5/weather?lat=35.652832&lon=139.839478&appid=$apiKey";
+       
+        $method = "GET";
+
+        $client = new Client();
+
+        $response = $client->request($method, $url);
+
+        $data = $response->getBody();
+        $data = json_decode($data, true);
+        // $weather=JSON.parse(response.getContentText());
+        $main = $data['main'];
+        $temp = ($main['temp']-273.15);
+        
+        // return response()->json($data);
         $mood = $request['mood'];
-        // dd($mood);
-        return view('/users/result');
+        
+        $user = Auth::user();
+        $personalcolor = $user['personalcolor'];
+        dd($personalcolor);
+        $user_id = Auth::id();
+        $clothes = User::find($user_id)->clothe;
+        $number = $clothes['0'];
+        $clothecolor = $number['color'];
+        dd($clothecolor);
+        $key = array_search($clothecolor, $personalcolor);
+        dd($key);
+        // if($mood === "カジュアル") {
+        //     if($)
+        //         if($temp >=26 ){
+                    
+        //         }
+        //         elseif(26>$temp>15){
+                    
+        //         }
+        //         else {
+                    
+        //         }
+        // }
+        // else {
+        //         if($temp >=26 ){
+                    
+        //         }
+        //         elseif(26>$temp>15){
+                    
+        //         }
+        //         else {
+                    
+        //         }
+        // }
+        // dd($clothes);
+        return view('/users/clothes/result');
+    }
+     public function lookhome()
+    {
+        return view('/look/home');
     }
      public function registerclothes(Request $request)
     {
@@ -89,8 +154,11 @@ class PostController extends Controller
         $clothe->color= $input['color'];
         $clothe->type= $input['type'];
         $clothe->brand_name= $input['brand_name'];
+        $user_id = Auth::id();
+        $clothe->user_id=$user_id;
         // dd($clothe);
         $clothe->save();
+        $clothe->users()->attach($user_id); 
         
         // $clothe = App\Clothe::find(1);
 
@@ -99,9 +167,7 @@ class PostController extends Controller
         // }
         
         // dd($user);
-        $user_id = Auth::id();
         // dd($user_id);
-        $clothe->users()->attach($user_id); 
 
         return redirect('/users/questions/registerclothes');
        
@@ -110,14 +176,19 @@ class PostController extends Controller
     // {
     //     return view('/users/result');
     // }
-     public function lookhome()
-    {
-        return view('/look/home');
-    }
     public function list(Clothe $clothe)
     {
-        // $clothes = Clothe::all();
-        return view('/users/clothes/list', )->with(['clothes' => $clothe->getPaginateByLimit()]);
+        $user_id = Auth::id();
+        $user = User::find($user_id);
+        // dd($clothe);
+        // $clothe->user_id=Auth::id();
+        // $user = Auth::id();
+        // $user = User::with('clothes')->get();
+        // dd($user_id);
+        // $user -> clothes();
+        // $clothe = Clothe::find(1);
+        // $clothe -> users();
+        return view('/users/clothes/list' )->with(['clothes' => $user->getPaginateByClothe()]);
     }
     public function show(Clothe $clothe)
     {

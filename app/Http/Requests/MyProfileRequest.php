@@ -26,6 +26,7 @@ class MyProfileRequest extends FormRequest
         return [
             'icon' => 'required',
             'introduction' => 'required|string|max:150',
+            'gender' => 'required',
         ];
     }
 }

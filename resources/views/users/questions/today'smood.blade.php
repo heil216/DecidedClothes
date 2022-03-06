@@ -11,11 +11,9 @@
                 <option value="きれいめ">きれいめ</option>
             </select>
         </div>
-        <!--<div class="situation">-->
-        <!--    <select name="situation">-->
-        <!--        <option value="場所">どうしようか</option>-->
-        <!--    </select>-->
-        <!--</div>-->
+        <img src = "https://openweathermap.org/img/wn/02n@2x.png" >
+        
+        
         <input type="submit" value="コーデを組む"/>
     </form>
 @endsection

@@ -19,15 +19,17 @@ Route::group(['middleware' => ['auth']], function(){
         ->name('todaymood');
     Route::post('/coordinate','PostController@coordinate')
         ->name('coordinate');
+    Route::get('/users/clothes/result','PostController@result')
+        ->name('result');
     Route::post('/add','PostController@add')
         ->name('add');
     Route::get('/result','PostController@result')
         ->name('result');  
     Route::get('/users/clothes/list','PostController@list')
         ->name('list');
-    Route::get('/users/clothes/{clothe}', 'PostController@show')
+    Route::get('/users/clothes//list/{clothe}', 'PostController@show')
         ->name('show');
-    Route::delete('/users/clothes/{clothe}', 'PostController@delete')
+    Route::delete('/users/clothes//list{clothe}', 'PostController@delete')
         ->name('delete');
 });
 Route::get('/look/home','PostController@lookhome')
