@@ -3,7 +3,8 @@
 
 @section('content')
         <p>TOP</p>
-       
+        <img src="{{ $clothe->image_path }}">
+        <p class='brand_name'>{{ $clothe->brand_name }}</p>
         <p>BOTTOM</p>
         
         <p>SHOES</p>

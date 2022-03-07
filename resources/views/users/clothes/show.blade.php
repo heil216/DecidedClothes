@@ -11,7 +11,7 @@
         <p class='brand_name'>{{ $clothe->brand_name }}</p>
         <p class='category'>{{ $clothe->category }}</p>
         
-        <form action="/users/clothes/{{ $clothe->id }}" id="form_{{ $clothe->id }}" method="post" style="display:inline">
+        <form action="/users/clothes/list/{{$clothe->id }}" id="form_{{ $clothe->id }}" method="post" style="display:inline">
             @csrf
             @method('DELETE')
             <button type="submit">delete</button> 

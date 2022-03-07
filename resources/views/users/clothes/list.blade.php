@@ -4,10 +4,13 @@
 @section('content')
     <h1>一覧</h1>
             @foreach ($clothes as $clothe)
-                ($clothe->image_path)
-                        <a href="{{ route('show',$clothe->id) }}" >
+                @if (isset($clothe))
+                    <a href="{{ route('show',$clothe->id) }}" >
                         <img src="{{ $clothe->image_path }}">
-                        </a>
+                    </a>
+                @else
+                    <p>登録されている洋服ありません。</p>
+                @endif
             @endforeach
         
         

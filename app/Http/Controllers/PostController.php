@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SeasonRequest;
 use App\Http\Requests\MyProfileRequest;
 use App\Http\Requests\ClothesRequest;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client;
@@ -42,9 +43,9 @@ class PostController extends Controller
         // echo "あなたは $personalseason  タイプです！！";
         
         if ($personalseason === 'Spring') {
-            $personalcolor = ['ORANGE','YELLOW','RED','PINK','WHITE','NABY'];
+            $personalcolor = "ORANGE,YELLOW,RED,PINK,WHITE,NABY";
         } elseif ($personalseason === 'Summer') {
-            $personalcolor = ['パープル','水色','グリーン','グレー','ホワイト','ネイビー'];
+            $personalcolor = "パープル,水色,グリーン,グレー,ホワイト,ネイビー";
         } elseif ($personalseason === 'Autumn') {
             $personalcolor = ['イエロー','ベージュ','レッド','ブラウン','カーキ'];
         } else {
@@ -92,45 +93,46 @@ class PostController extends Controller
         // $weather=JSON.parse(response.getContentText());
         $main = $data['main'];
         $temp = ($main['temp']-273.15);
-        
-        // return response()->json($data);
+        // dd($temp);
+
         $mood = $request['mood'];
         
         $user = Auth::user();
-        $personalcolor = $user['personalcolor'];
-        dd($personalcolor);
-        $user_id = Auth::id();
-        $clothes = User::find($user_id)->clothe;
-        $number = $clothes['0'];
-        $clothecolor = $number['color'];
-        dd($clothecolor);
-        $key = array_search($clothecolor, $personalcolor);
-        dd($key);
-        // if($mood === "カジュアル") {
-        //     if($)
-        //         if($temp >=26 ){
-                    
-        //         }
-        //         elseif(26>$temp>15){
-                    
-        //         }
-        //         else {
-                    
-        //         }
-        // }
-        // else {
-        //         if($temp >=26 ){
-                    
-        //         }
-        //         elseif(26>$temp>15){
-                    
-        //         }
-        //         else {
-                    
-        //         }
-        // }
-        // dd($clothes);
-        return view('/users/clothes/result');
+        // dd($user);
+        $personalcolors = $user['personalcolor'];
+        $personalcolors = explode(',',$personalcolors);
+        // dd($personalcolors);
+        // $user_seasontype = Auth::id();
+        // $clothes = User::find($user_id)->clothe;
+        // $number = $clothes['0'];
+        // $clothecolor = $clothes['color'];
+        // dd($clothecolor);
+        // $seasontype = $clothes['season_type'];
+        // $key = array_search($clothecolor, $personalcolor);
+        
+        if($temp>=25){
+            $seasontype = '夏' ;
+            $clothe = DB::table('clothes')->where('season_type',$seasontype)
+                                          ->where('style',$mood)
+                                          ->whereIn('color',$personalcolors)
+                                          ->get();
+        } elseif (16 > $temp) {
+            $seasontype = '冬' ;
+            // dd($mood);
+            $clothe = DB::table('clothes')->where('season_type',$seasontype)
+                                          ->where('style',$mood)
+                                          ->whereIn('color',$personalcolors)
+                                          ->get();
+        } else {
+            $seasontype = '春・秋' ;
+            $clothe = DB::table('clothes')->where('season_type',$seasontype)
+                                          ->where('style',$mood)
+                                          ->whereIn('color',$personalcolors)
+                                          ->get();
+        }
+        // $clothe = $clothe['0'];
+        $clothe = $clothe[random_int(0, count($clothe)-1)];
+        return view('/users/clothes/result')->with(['clothe' => $clothe]);
     }
      public function lookhome()
     {
@@ -192,13 +194,11 @@ class PostController extends Controller
     }
     public function show(Clothe $clothe)
     {
-        // $clothes = new Clothe;
         return view('/users/clothes/show')->with(['clothe' => $clothe]);
     }
     public function delete(Clothe $clothe)
     {
         $clothe->delete();
         return redirect('/users/clothes/list');
-        
     }
 }
