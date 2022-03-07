@@ -96,9 +96,9 @@ class PostController extends Controller
         // dd($temp);
 
         $mood = $request['mood'];
+        // dd($request['mood']);
         
         $user = Auth::user();
-        // dd($user);
         $personalcolors = $user['personalcolor'];
         $personalcolors = explode(',',$personalcolors);
         // dd($personalcolors);
@@ -112,27 +112,32 @@ class PostController extends Controller
         
         if($temp>=25){
             $seasontype = '夏' ;
-            $clothe = DB::table('clothes')->where('season_type',$seasontype)
-                                          ->where('style',$mood)
-                                          ->whereIn('color',$personalcolors)
-                                          ->get();
+            
         } elseif (16 > $temp) {
             $seasontype = '冬' ;
-            // dd($mood);
-            $clothe = DB::table('clothes')->where('season_type',$seasontype)
-                                          ->where('style',$mood)
-                                          ->whereIn('color',$personalcolors)
-                                          ->get();
         } else {
             $seasontype = '春・秋' ;
-            $clothe = DB::table('clothes')->where('season_type',$seasontype)
-                                          ->where('style',$mood)
-                                          ->whereIn('color',$personalcolors)
-                                          ->get();
         }
+        $clothe_tops = DB::table('clothes')->where('category','top')
+                                               ->where('season_type',$seasontype)
+                                               ->where('style',$mood)
+                                               ->whereIn('color',$personalcolors)
+                                               ->get();
+        $clothe_bottoms = DB::table('clothes')->where('category','bottom')
+                                                  ->where('season_type',$seasontype)
+                                                  ->where('style',$mood)
+                                                  ->whereIn('color',$personalcolors)
+                                                  ->get();
+        $clothe_shoes = DB::table('clothes')->where('category','shoe')
+                                                ->where('season_type',$seasontype)
+                                                ->where('style',$mood)
+                                                ->whereIn('color',$personalcolors)
+                                                ->get();
         // $clothe = $clothe['0'];
-        $clothe = $clothe[random_int(0, count($clothe)-1)];
-        return view('/users/clothes/result')->with(['clothe' => $clothe]);
+        $clothe_top = $clothe_tops[random_int(0, count($clothe_tops)-1)];
+        $clothe_bottom = $clothe_bottoms[random_int(0, count($clothe_bottoms)-1)];
+        $clothe_shoe = $clothe_shoes[random_int(0, count($clothe_shoes)-1)];
+        return view('/users/clothes/result')->with(['clothe_top' => $clothe_top,'clothe_bottom' => $clothe_bottom,'clothe_shoe' => $clothe_shoe,'mood'=>$mood]);
     }
      public function lookhome()
     {

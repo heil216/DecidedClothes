@@ -19,6 +19,7 @@ Route::group(['middleware' => ['auth']], function(){
         ->name('todaymood');
     Route::post('/coordinate','PostController@coordinate')
         ->name('coordinate');
+    Route::get('/coordinate/{mood}','PostController@coordinate');
     Route::get('/users/clothes/result','PostController@result')
         ->name('result');
     Route::post('/add','PostController@add')
