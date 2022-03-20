@@ -3,12 +3,11 @@
 
 @section('content')
     <section>
-        <p>今日のコーデを組む</p>
-        <p>今日のコーデを見る</p>
+        <a href="#index">今日のコーデを組む</a>
     </section>
     
     <section>
-        <p>初めての方はこちらから</p>
+        <a id="index">初めての方はこちらから</a>
         <p>クローゼットに服を追加する</p>
         <a href="{{ route('todaymood') }}">コーデを組む</a>
     </section>

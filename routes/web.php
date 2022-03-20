@@ -26,8 +26,10 @@ Route::group(['middleware' => ['auth']], function(){
         ->name('add');
     Route::get('/result','PostController@result')
         ->name('result');  
-    Route::get('/users/clothes/list','PostController@list')
-        ->name('list');
+    Route::get('/users/clothes/mylist','PostController@mylist')
+        ->name('mylist');
+    Route::get('/users/clothes/otherslist','PostController@otherslist')
+        ->name('otherslist');
     Route::get('/users/clothes/list/{clothe}', 'PostController@show')
         ->name('show');
     Route::delete('/users/clothes/list/{clothe}', 'PostController@delete')

@@ -45,9 +45,9 @@ class PostController extends Controller
         if ($personalseason === 'Spring') {
             $personalcolor = "ORANGE,YELLOW,RED,PINK,WHITE,NABY";
         } elseif ($personalseason === 'Summer') {
-            $personalcolor = "パープル,水色,グリーン,グレー,ホワイト,ネイビー";
+            $personalcolor = "PURPLE,LIGHT BLUE,GREEN,GRAY,WHITE,NAVY";
         } elseif ($personalseason === 'Autumn') {
-            $personalcolor = ['イエロー','ベージュ','レッド','ブラウン','カーキ'];
+            $personalcolor = "YELLOW,BEIGE,RED,BROWN,KHAKI";
         } else {
             $personalcolor = ['グリーン','グレー','ブラック','ピンク','ホワイト','ネイビー','ブルー'];
         }
@@ -101,42 +101,47 @@ class PostController extends Controller
         $user = Auth::user();
         $personalcolors = $user['personalcolor'];
         $personalcolors = explode(',',$personalcolors);
-        // dd($personalcolors);
-        // $user_seasontype = Auth::id();
-        // $clothes = User::find($user_id)->clothe;
-        // $number = $clothes['0'];
-        // $clothecolor = $clothes['color'];
-        // dd($clothecolor);
-        // $seasontype = $clothes['season_type'];
-        // $key = array_search($clothecolor, $personalcolor);
-        
+
         if($temp>=25){
             $seasontype = '夏' ;
-            
         } elseif (16 > $temp) {
             $seasontype = '冬' ;
         } else {
             $seasontype = '春・秋' ;
         }
+        
         $clothe_tops = DB::table('clothes')->where('category','top')
-                                               ->where('season_type',$seasontype)
-                                               ->where('style',$mood)
-                                               ->whereIn('color',$personalcolors)
-                                               ->get();
+                                           ->where('season_type',$seasontype)
+                                           ->where('style',$mood)
+                                           ->whereIn('color',$personalcolors)
+                                           ->get();
         $clothe_bottoms = DB::table('clothes')->where('category','bottom')
-                                                  ->where('season_type',$seasontype)
-                                                  ->where('style',$mood)
-                                                  ->whereIn('color',$personalcolors)
-                                                  ->get();
+                                              ->where('season_type',$seasontype)
+                                              ->where('style',$mood)
+                                              ->whereIn('color',$personalcolors)
+                                              ->get();
         $clothe_shoes = DB::table('clothes')->where('category','shoe')
-                                                ->where('season_type',$seasontype)
-                                                ->where('style',$mood)
-                                                ->whereIn('color',$personalcolors)
-                                                ->get();
+                                            ->where('season_type',$seasontype)
+                                            ->where('style',$mood)
+                                            ->whereIn('color',$personalcolors)
+                                            ->get();
+        // dd($clothe_tops);
         // $clothe = $clothe['0'];
-        $clothe_top = $clothe_tops[random_int(0, count($clothe_tops)-1)];
-        $clothe_bottom = $clothe_bottoms[random_int(0, count($clothe_bottoms)-1)];
-        $clothe_shoe = $clothe_shoes[random_int(0, count($clothe_shoes)-1)];
+        if(!empty($clothe_tops)){
+            $clothe_top = $clothe_tops[random_int(0, count($clothe_tops)-1)];
+        } else {
+            echo "トップスが登録されていません！".PHP_EOL;
+        }
+        if(!empty($clothe_bottoms)){
+            $clothe_bottom = $clothe_bottoms[random_int(0, count($clothe_bottoms)-1)];
+        } else {
+            echo "パンツが登録されていません！".PHP_EOL;
+        }
+        if(!empty($clothe_shoes)){
+            $clothe_shoe = $clothe_shoes[random_int(0, count($clothe_shoes)-1)];
+        } else {
+            echo "靴が登録されていません！".PHP_EOL;
+        }
         return view('/users/clothes/result')->with(['clothe_top' => $clothe_top,'clothe_bottom' => $clothe_bottom,'clothe_shoe' => $clothe_shoe,'mood'=>$mood]);
     }
      public function lookhome()
@@ -167,35 +172,33 @@ class PostController extends Controller
         $clothe->save();
         $clothe->users()->attach($user_id); 
         
-        // $clothe = App\Clothe::find(1);
-
-        // foreach ($clothes->users as $user) {
-        //         $users = App\Clothe::find(1)->users()->orderBy('updated_at', 'DESC')->get();
-        // }
-        
-        // dd($user);
-        // dd($user_id);
-
         return redirect('/users/questions/registerclothes');
        
     }
-    //  public function result()
-    // {
-    //     return view('/users/result');
-    // }
-    public function list(Clothe $clothe)
+    public function mylist()
     {
         $user_id = Auth::id();
         $user = User::find($user_id);
-        // dd($clothe);
-        // $clothe->user_id=Auth::id();
-        // $user = Auth::id();
-        // $user = User::with('clothes')->get();
-        // dd($user_id);
-        // $user -> clothes();
-        // $clothe = Clothe::find(1);
-        // $clothe -> users();
-        return view('/users/clothes/list' )->with(['clothes' => $user->getPaginateByClothe()]);
+        // dd($user);
+        return view('/users/clothes/mylist' )->with(['clothes' => $user->getPaginateByClothe()]);
+    }
+    public function otherslist()
+    {
+        // $user_id = User::pluck('id');
+        
+        $my_id = Auth::id();
+        $otherusers = DB::table('users')->where('id','<>',$my_id)
+                                        ->get();
+        // $otherusers = User::where('id','!=',$my_id)->get();
+        // $user = User::get();
+        // dd($user);
+        // if($user_id === $my_id) {
+            //ここでfor文使う？others as other
+        // } else {
+        // $user = User::find($otheruser);
+        // }
+        // dd($otherusers);
+        return view('/users/clothes/otherslist' )->with(['clothes' => $otherusers->getPaginateByClothe()]);
     }
     public function show(Clothe $clothe)
     {

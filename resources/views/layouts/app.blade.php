@@ -15,6 +15,7 @@
     <!-- Fonts -->
     <!--<link rel="dns-prefetch" href="//fonts.gstatic.com">-->
     <link rel="icon" href="travel_isogu.png">
+    <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
