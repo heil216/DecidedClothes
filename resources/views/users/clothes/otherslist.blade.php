@@ -11,7 +11,5 @@
         
         
         
-        <div class='paginate'>
-            {{ $clothes->links() }}
-        </div>
+        
 @endsection

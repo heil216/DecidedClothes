@@ -127,20 +127,20 @@ class PostController extends Controller
                                             ->get();
         // dd($clothe_tops);
         // $clothe = $clothe['0'];
-        if(!empty($clothe_tops)){
+        if(count($clothe_tops)>0){
             $clothe_top = $clothe_tops[random_int(0, count($clothe_tops)-1)];
         } else {
-            echo "トップスが登録されていません！".PHP_EOL;
+            $clothe_top = "";
         }
-        if(!empty($clothe_bottoms)){
+        if(count($clothe_bottoms)>0){
             $clothe_bottom = $clothe_bottoms[random_int(0, count($clothe_bottoms)-1)];
         } else {
-            echo "パンツが登録されていません！".PHP_EOL;
+            $clothe_bottom = "";
         }
-        if(!empty($clothe_shoes)){
+        if(count($clothe_shoes)>0){
             $clothe_shoe = $clothe_shoes[random_int(0, count($clothe_shoes)-1)];
         } else {
-            echo "靴が登録されていません！".PHP_EOL;
+            $clothe_shoe = "";
         }
         return view('/users/clothes/result')->with(['clothe_top' => $clothe_top,'clothe_bottom' => $clothe_bottom,'clothe_shoe' => $clothe_shoe,'mood'=>$mood]);
     }
@@ -187,8 +187,10 @@ class PostController extends Controller
         // $user_id = User::pluck('id');
         
         $my_id = Auth::id();
-        $otherusers = DB::table('users')->where('id','<>',$my_id)
-                                        ->get();
+        // $otherusers = DB::table('users')->where('id','<>',$my_id)
+        //                                 ->pluck('id');
+        $clothes = DB::table('clothes')->where('user_id','<>',$my_id)->get();
+        // dd($clothes);
         // $otherusers = User::where('id','!=',$my_id)->get();
         // $user = User::get();
         // dd($user);
@@ -198,7 +200,7 @@ class PostController extends Controller
         // $user = User::find($otheruser);
         // }
         // dd($otherusers);
-        return view('/users/clothes/otherslist' )->with(['clothes' => $otherusers->getPaginateByClothe()]);
+        return view('/users/clothes/otherslist' )->with(['clothes' => $clothes]);
     }
     public function show(Clothe $clothe)
     {
