@@ -11,6 +11,55 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(postsTableSeeder::class);
+        DB::table('clothescolors')->insert([
+            [
+                'name' => 'ホワイト',
+            ],
+            [
+                'name' => 'ブラック',
+            ],
+            [
+                'name' => 'グレー',
+            ],
+            [
+            'name' => 'レッド',
+            ],
+            [
+            'name' => 'オレンジ',
+            ],
+            [
+            'name' => 'イエロー',
+            ],
+            [
+            'name' => 'ベージュ',
+            ],
+            [
+            'name' => 'ライトグリーン',
+            ],
+            [
+            'name' => 'グリーン',
+            ],
+            [
+            'name' => 'カーキ',
+            ],
+            [
+            'name' => 'ライトブルー',
+            ],
+            [
+            'name' => 'ブルー',
+            ],
+            [
+            'name' => 'ネイビー',
+            ],
+            [
+            'name' => 'パープル',
+            ],
+            [
+            'name' => 'ピンク',
+            ],
+            [
+            'name' => 'ブラウン',
+            ],
+        ]);
     }
 }

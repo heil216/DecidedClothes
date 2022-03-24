@@ -43,13 +43,13 @@ class PostController extends Controller
         // echo "あなたは $personalseason  タイプです！！";
         
         if ($personalseason === 'Spring') {
-            $personalcolor = "ORANGE,YELLOW,RED,PINK,WHITE,NABY";
+            $personalcolor = "オレンジ,イエロー,パープル,ブラウン,グレー,レッド,グリーン,ライトブルー,ピンク,ホワイト,ネイビー";
         } elseif ($personalseason === 'Summer') {
-            $personalcolor = "PURPLE,LIGHT BLUE,GREEN,GRAY,WHITE,NAVY";
+            $personalcolor = "パープル,ライトブルー,グリーン,レッド,ブルー,ホワイト,グレー,ホワイト,ネイビー";
         } elseif ($personalseason === 'Autumn') {
-            $personalcolor = "YELLOW,BEIGE,RED,BROWN,KHAKI";
+            $personalcolor = "イエロー,ベージュ,ライトブルー,ブラック,パープル,レッド,グリーン,ブラウン,ホワイト,カーキ,グレー";
         } else {
-            $personalcolor = ['グリーン','グレー','ブラック','ピンク','ホワイト','ネイビー','ブルー'];
+            $personalcolor = "イエロー,グリーン,グレー,ライトブルー,ブラック,ピンク,レッド,ホワイト,ネイビー,ブルー";
         }
         $user->personalcolor = $personalcolor;
         // dd($user);
