@@ -100,49 +100,53 @@ class PostController extends Controller
         
         $user = Auth::user();
         $personalcolors = $user['personalcolor'];
-        $personalcolors = explode(',',$personalcolors);
-
-        if($temp>=25){
-            $seasontype = '夏' ;
-        } elseif (16 > $temp) {
-            $seasontype = '冬' ;
-        } else {
-            $seasontype = '春・秋' ;
+        if(empty($personalcolors)){
+            echo "パーソナルカラー診断がまだ終わっていません！".PHP_EOL;
         }
-        
-        $clothe_tops = DB::table('clothes')->where('category','top')
-                                           ->where('season_type',$seasontype)
-                                           ->where('style',$mood)
-                                           ->whereIn('color',$personalcolors)
-                                           ->get();
-        $clothe_bottoms = DB::table('clothes')->where('category','bottom')
-                                              ->where('season_type',$seasontype)
-                                              ->where('style',$mood)
-                                              ->whereIn('color',$personalcolors)
-                                              ->get();
-        $clothe_shoes = DB::table('clothes')->where('category','shoe')
-                                            ->where('season_type',$seasontype)
-                                            ->where('style',$mood)
-                                            ->whereIn('color',$personalcolors)
-                                            ->get();
-        // dd($clothe_tops);
-        // $clothe = $clothe['0'];
-        if(count($clothe_tops)>0){
-            $clothe_top = $clothe_tops[random_int(0, count($clothe_tops)-1)];
-        } else {
-            $clothe_top = "";
-        }
-        if(count($clothe_bottoms)>0){
-            $clothe_bottom = $clothe_bottoms[random_int(0, count($clothe_bottoms)-1)];
-        } else {
-            $clothe_bottom = "";
-        }
-        if(count($clothe_shoes)>0){
-            $clothe_shoe = $clothe_shoes[random_int(0, count($clothe_shoes)-1)];
-        } else {
-            $clothe_shoe = "";
-        }
+        else{
+            $personalcolors = explode(',',$personalcolors);
+            if($temp>=25){
+                $seasontype = '夏' ;
+            } elseif (16 > $temp) {
+                $seasontype = '冬' ;
+            } else {
+                $seasontype = '春・秋' ;
+            }
+            
+            $clothe_tops = DB::table('clothes')->where('category','top')
+                                               ->where('season_type',$seasontype)
+                                               ->where('style',$mood)
+                                               ->whereIn('color',$personalcolors)
+                                               ->get();
+            $clothe_bottoms = DB::table('clothes')->where('category','bottom')
+                                                  ->where('season_type',$seasontype)
+                                                  ->where('style',$mood)
+                                                  ->whereIn('color',$personalcolors)
+                                                  ->get();
+            $clothe_shoes = DB::table('clothes')->where('category','shoe')
+                                                ->where('season_type',$seasontype)
+                                                ->where('style',$mood)
+                                                ->whereIn('color',$personalcolors)
+                                                ->get();
+            // dd($clothe_tops);
+            // $clothe = $clothe['0'];
+            if(count($clothe_tops)>0){
+                $clothe_top = $clothe_tops[random_int(0, count($clothe_tops)-1)];
+            } else {
+                $clothe_top = "";
+            }
+            if(count($clothe_bottoms)>0){
+                $clothe_bottom = $clothe_bottoms[random_int(0, count($clothe_bottoms)-1)];
+            } else {
+                $clothe_bottom = "";
+            }
+            if(count($clothe_shoes)>0){
+                $clothe_shoe = $clothe_shoes[random_int(0, count($clothe_shoes)-1)];
+            } else {
+                $clothe_shoe = "";
+            }
         return view('/users/clothes/result')->with(['clothe_top' => $clothe_top,'clothe_bottom' => $clothe_bottom,'clothe_shoe' => $clothe_shoe,'mood'=>$mood]);
+        }
     }
      public function lookhome()
     {
@@ -209,6 +213,6 @@ class PostController extends Controller
     public function delete(Clothe $clothe)
     {
         $clothe->delete();
-        return redirect('/users/clothes/list');
+        return redirect('/users/clothes/mylist');
     }
 }

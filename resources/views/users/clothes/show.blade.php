@@ -16,6 +16,6 @@
             @method('DELETE')
             <button type="submit">delete</button> 
         </form>
-        <a href="{{ route('list') }}">戻る</a>
+        <a href="{{ route('mylist') }}">戻る</a>
 @endsection
 
