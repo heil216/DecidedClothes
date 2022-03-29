@@ -48,6 +48,9 @@
                             <a class="nav-link" href="{{ route('step3') }}">{{ __('服を追加する') }}</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('todaymood') }}">{{ __('コーデを組む') }}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('lookhome') }}">{{ __('服を見る') }}</a>
                         </li>
                         @guest

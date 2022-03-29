@@ -97,11 +97,11 @@ class PostController extends Controller
 
         $mood = $request['mood'];
         // dd($request['mood']);
-        
+        $user_id = Auth::id();
         $user = Auth::user();
         $personalcolors = $user['personalcolor'];
         if(empty($personalcolors)){
-            echo "パーソナルカラー診断がまだ終わっていません！".PHP_EOL;
+            $personalcolors="";
         }
         else{
             $personalcolors = explode(',',$personalcolors);
@@ -114,16 +114,19 @@ class PostController extends Controller
             }
             
             $clothe_tops = DB::table('clothes')->where('category','top')
+                                               ->where('user_id',$user_id)
                                                ->where('season_type',$seasontype)
                                                ->where('style',$mood)
                                                ->whereIn('color',$personalcolors)
                                                ->get();
             $clothe_bottoms = DB::table('clothes')->where('category','bottom')
+                                                  ->where('user_id',$user_id)
                                                   ->where('season_type',$seasontype)
                                                   ->where('style',$mood)
                                                   ->whereIn('color',$personalcolors)
                                                   ->get();
             $clothe_shoes = DB::table('clothes')->where('category','shoe')
+                                                ->where('user_id',$user_id)
                                                 ->where('season_type',$seasontype)
                                                 ->where('style',$mood)
                                                 ->whereIn('color',$personalcolors)
@@ -145,8 +148,12 @@ class PostController extends Controller
             } else {
                 $clothe_shoe = "";
             }
-        return view('/users/clothes/result')->with(['clothe_top' => $clothe_top,'clothe_bottom' => $clothe_bottom,'clothe_shoe' => $clothe_shoe,'mood'=>$mood]);
+            // dd($clothe_top);
+            // dd($personalcolors);
         }
+        return view('/users/clothes/result')
+            ->with(['clothe_top' => $clothe_top,'clothe_bottom' => $clothe_bottom,'clothe_shoe' => $clothe_shoe,'mood'=>$mood,
+                    'personalcolors' =>$personalcolors]);
     }
      public function lookhome()
     {
