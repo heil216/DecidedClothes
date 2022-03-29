@@ -102,8 +102,10 @@ class PostController extends Controller
         $personalcolors = $user['personalcolor'];
         if(empty($personalcolors)){
             $personalcolors="";
-        }
-        else{
+            $clothe_top = "";
+            $clothe_bottom = "";
+            $clothe_shoe = "";
+        }else{
             $personalcolors = explode(',',$personalcolors);
             if($temp>=25){
                 $seasontype = '夏' ;
@@ -148,9 +150,9 @@ class PostController extends Controller
             } else {
                 $clothe_shoe = "";
             }
-            // dd($clothe_top);
+            }
             // dd($personalcolors);
-        }
+            // dd($clothe_top);
         return view('/users/clothes/result')
             ->with(['clothe_top' => $clothe_top,'clothe_bottom' => $clothe_bottom,'clothe_shoe' => $clothe_shoe,'mood'=>$mood,
                     'personalcolors' =>$personalcolors]);
